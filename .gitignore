@@ -26,7 +26,7 @@
 *.exe
 *.out
 *.app
-src/yobatronika
+yobatronika
 
 # Build directory
 build

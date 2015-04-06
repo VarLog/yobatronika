@@ -24,13 +24,15 @@ set(HEADERS "include/Game.h")
 
 set(SOURCES "src/main.cpp" "src/Game.cpp")
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/")
+
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 11)
 
 target_link_libraries(${PROJECT_NAME} ${ALL_LIBS})
 
-# Xcode 
+# Xcode
 set_target_properties(${PROJECT_NAME} PROPERTIES 
-                      XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/")
+                      XCODE_ATTRIBUTE_CONFIGURATION_BUILD_DIR "${CMAKE_CURRENT_SOURCE_DIR}/")
 
 
