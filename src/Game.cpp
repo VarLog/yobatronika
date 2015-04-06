@@ -33,7 +33,7 @@ bool Game::init(int xpos, int ypos, int width, int height) {
             m_pRenderer = SDL_CreateRenderer(m_pWindow, -1, sdl_render_flags);
             if(m_pRenderer != nullptr) {
                 std::cout << "renderer creation success" << std::endl;
-                SDL_SetRenderDrawColor(m_pRenderer, 128, 128, 128, 255);
+                SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
             } else {
                 std::cout << "renderer init fail" << std::endl;
                 return false;   /// \todo exception
@@ -103,11 +103,38 @@ void Game::render() {
     SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle,
                    &m_destinationRectangle);
     
+    auto rect = m_destinationRectangle;
+    rect.x = 0;
+    rect.y += rect.w;
+    SDL_RenderCopyEx(m_pRenderer, m_pTexture,
+                     &m_sourceRectangle, &rect,
+                     0, 0, SDL_FLIP_HORIZONTAL); // pass in the horizontal flip
+    
     SDL_RenderPresent(m_pRenderer); // draw to the screen
 }
 
 void Game::update() {
-    m_sourceRectangle.x = m_sourceRectangle.w * int(((SDL_GetTicks() / 100) % 6));
+    const int delta = 200;
+    static int lastTicks = 0;
+    static int idx = 0;
+    
+    if ( (SDL_GetTicks() - lastTicks) > delta ) {
+        idx++;
+        lastTicks = SDL_GetTicks();
+    }
+    
+    if (idx == 6) {
+        idx = 0;
+        m_destinationRectangle.x += m_destinationRectangle.w/6;
+    }
+    
+    m_sourceRectangle.x = m_sourceRectangle.w * idx;
+    
+    m_destinationRectangle.x += m_destinationRectangle.w/36;
+    
+    if (m_destinationRectangle.x > 600) {
+        m_destinationRectangle.x = 0;
+    }
 }
 
 void Game::handleEvents() {
