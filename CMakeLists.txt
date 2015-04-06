@@ -15,9 +15,14 @@ else()
     include_directories(${SDL2_INCLUDE_DIRS})
     message(STATUS "include: ${SDL2_INCLUDE_DIRS}")
     link_directories( ${SDL2_LIBRARY_DIRS} )
+
+    pkg_check_modules (SDL2_IMAGE REQUIRED SDL2_image)
+    include_directories(${SDL2_IMAGE_INCLUDE_DIRS})
+    message(STATUS "include: ${SDL2_IMAGE_INCLUDE_DIRS}")
+    link_directories( ${SDL2_IMAGE_LIBRARY_DIRS} )
 endif()
 
-set(ALL_LIBS ${SDL2_LIBRARIES})
+set(ALL_LIBS ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES})
 
 include_directories("include")
 set(HEADERS "include/Game.h")
