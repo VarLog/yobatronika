@@ -19,7 +19,10 @@ endif()
 
 set(ALL_LIBS ${SDL2_LIBRARIES})
 
-set(SOURCES "src/main.cpp" )
+include_directories("include")
+set(HEADERS "include/Game.h")
+
+set(SOURCES "src/main.cpp" "src/Game.cpp")
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 set_property(TARGET ${PROJECT_NAME} PROPERTY CXX_STANDARD 11)

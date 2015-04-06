@@ -26,7 +26,9 @@
 *.exe
 *.out
 *.app
+src/yobatronika
 
 # Build directory
 build
+build_xcode
 
