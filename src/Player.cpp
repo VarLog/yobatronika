@@ -30,7 +30,7 @@ void Player::clean() {
 
 void Player::update()
 {
-    m_velocity.setX(1);
+    m_acceleration.setX(0.05);
     
     SDLGameObject::update();
 }

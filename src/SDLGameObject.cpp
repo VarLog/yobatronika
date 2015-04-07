@@ -13,7 +13,7 @@
 using namespace Yoba;
 
 SDLGameObject::SDLGameObject(const LoaderParams &params) :
-GameObject(params), m_position(params.getX(), params.getY()), m_velocity(0,0)
+GameObject(params), m_position(params.getX(), params.getY()), m_velocity(0,0), m_acceleration(0,0)
 {
     m_width = params.getWidth();
     m_height = params.getHeight();
@@ -32,6 +32,7 @@ void SDLGameObject::draw()
 }
 
 void SDLGameObject::update() {
+    m_velocity += m_acceleration;
     m_position += m_velocity;
 }
 
