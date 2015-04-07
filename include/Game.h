@@ -25,7 +25,8 @@ namespace Yoba {
     public:
         static constexpr char const *title = "YOBAtronika";
         
-        Game(int xpos, int ypos, int width, int height);
+        bool init(int xpos, int ypos, int width, int height);
+
         ~Game();
         
         void render();
@@ -34,7 +35,17 @@ namespace Yoba {
         
         bool running();
         
+        static std::shared_ptr<Game> Instance();
+        static void DeleteInstance();
+        
     private:
+        
+        Game();
+        
+        static std::shared_ptr<Game> m_spInstance;
+
+        void clean();
+
         static constexpr int sdl_init_flags = SDL_WINDOW_SHOWN;
         static constexpr int sdl_render_flags = SDL_RENDERER_PRESENTVSYNC;
         static constexpr int sdl_img_flags = IMG_INIT_PNG;
@@ -49,9 +60,6 @@ namespace Yoba {
         std::vector<std::shared_ptr<Enemy>> m_vEnemies;
         
         std::vector<std::shared_ptr<GameObject>> m_vGameObjects;
-        
-        bool init(int xpos, int ypos, int width, int height);
-        void clean();
     };
 }
 

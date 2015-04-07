@@ -12,8 +12,23 @@
 
 using namespace Yoba;
 
-Game::Game(int xpos, int ypos, int width, int height) {
-    init(xpos, ypos, width, height);
+std::shared_ptr<Game> Game::m_spInstance = nullptr;
+
+std::shared_ptr<Game> Game::Instance()
+{
+    if(m_spInstance == nullptr)
+    {
+        m_spInstance = std::shared_ptr<Game>(new Game());
+    }
+    return m_spInstance;
+}
+
+void Game::DeleteInstance() {
+    m_spInstance.reset();
+}
+
+
+Game::Game() {
 }
 
 Game::~Game() {
