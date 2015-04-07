@@ -16,6 +16,7 @@ namespace Yoba {
     class Player : public GameObject {
     public:
         Player(std::string name, int x, int y, int width, int height, std::string textureID);
+        ~Player();
         
     private:
         

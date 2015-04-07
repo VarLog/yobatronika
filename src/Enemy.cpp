@@ -15,3 +15,7 @@ Enemy::Enemy(int x, int y, int width, int height, std::string textureID)
 {
     
 }
+
+Enemy::~Enemy() {
+    
+}

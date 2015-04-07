@@ -16,7 +16,8 @@ namespace Yoba {
     class Enemy : public GameObject {
     public:
         Enemy(int x, int y, int width, int height, std::string textureID);
-  
+        ~Enemy();
+        
     };
     
 }
