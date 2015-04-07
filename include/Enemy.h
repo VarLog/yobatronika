@@ -18,6 +18,10 @@ namespace Yoba {
         Enemy(const LoaderParams &params);
         virtual ~Enemy();
         
+        virtual void draw() override;
+        virtual void update() override;
+        virtual void clean() override;
+
     };
     
 }

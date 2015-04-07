@@ -18,6 +18,10 @@ namespace Yoba {
         Player(std::string name, const LoaderParams &params);
         virtual ~Player();
         
+        virtual void draw() override;
+        virtual void update() override;
+        virtual void clean() override;
+
     private:
         
         std::string m_sName;

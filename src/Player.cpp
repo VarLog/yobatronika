@@ -19,3 +19,18 @@ Player::Player(std::string name, const LoaderParams &params)
 Player::~Player() {
     
 }
+
+void Player::draw() {
+    SDLGameObject::draw();
+}
+
+void Player::clean() {
+    SDLGameObject::clean();
+}
+
+void Player::update()
+{
+    m_velocity.setX(1);
+    
+    SDLGameObject::update();
+}

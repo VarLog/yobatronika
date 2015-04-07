@@ -12,6 +12,7 @@
 #include <string>
 
 #include "GameObject.h"
+#include "Vector2D.h"
 
 namespace Yoba {
     
@@ -25,8 +26,8 @@ namespace Yoba {
         virtual void clean() override;
         
     protected:
-        int m_x;
-        int m_y;
+        Vector2D m_position;
+        Vector2D m_velocity;
         
         int m_width;
         int m_height;

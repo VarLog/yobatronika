@@ -19,3 +19,18 @@ Enemy::Enemy(const LoaderParams &params)
 Enemy::~Enemy() {
     
 }
+
+void Enemy::draw() {
+    SDLGameObject::draw();
+}
+
+void Enemy::clean() {
+    SDLGameObject::clean();
+}
+
+void Enemy::update()
+{
+    m_velocity.setX(-1);
+    
+    SDLGameObject::update();
+}

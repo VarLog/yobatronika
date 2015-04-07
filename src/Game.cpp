@@ -104,7 +104,7 @@ void Game::render() {
 
 void Game::update() {
     for (auto obj : m_vGameObjects) {
-        obj->draw();
+        obj->update();
     }
     
     /*
