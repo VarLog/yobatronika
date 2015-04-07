@@ -14,6 +14,8 @@
 #include <SDL.h>
 #include <SDL_image.h>
 
+#include "TextureManager.h"
+
 namespace Yoba {
     class Game {
     public:

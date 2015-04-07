@@ -78,6 +78,9 @@ bool Game::init(int xpos, int ypos, int width, int height) {
     m_destinationRectangle.w = m_sourceRectangle.w;
     m_destinationRectangle.h = m_sourceRectangle.h;
     
+    TextureManager::Instance()->load("assets/tiger.png",
+                          "tiger", m_pRenderer);
+    
     std::cout << "init success\n";
     m_bRunning = true;
     
@@ -109,6 +112,9 @@ void Game::render() {
     SDL_RenderCopyEx(m_pRenderer, m_pTexture,
                      &m_sourceRectangle, &rect,
                      0, 0, SDL_FLIP_HORIZONTAL); // pass in the horizontal flip
+    
+    TextureManager::Instance()->drawFrame("tiger", 100,100, 128, 82,
+                               1, 1, m_pRenderer);
     
     SDL_RenderPresent(m_pRenderer); // draw to the screen
 }

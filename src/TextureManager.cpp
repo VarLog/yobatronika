@@ -11,6 +11,8 @@
 
 using namespace Yoba;
 
+std::shared_ptr<TextureManager> TextureManager::m_spInstance = nullptr;
+
 bool TextureManager::load(std::string fileName, std::string id, SDL_Renderer *pRenderer)
 {
     SDL_Surface* pTempSurface = IMG_Load(fileName.c_str());
