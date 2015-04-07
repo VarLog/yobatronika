@@ -25,9 +25,20 @@ endif()
 set(ALL_LIBS ${SDL2_LIBRARIES} ${SDL2_IMAGE_LIBRARIES})
 
 include_directories("include")
-set(HEADERS "include/Game.h" "include/TextureManager.h" "include/GameObject.h" )
+set(HEADERS
+"include/Game.h"
+"include/TextureManager.h"
+"include/GameObject.h"
+"include/Player.h"
+)
 
-set(SOURCES "src/main.cpp" "src/Game.cpp" "src/TextureManager.cpp" "src/GameObject.cpp")
+set(SOURCES
+"src/main.cpp"
+"src/Game.cpp"
+"src/TextureManager.cpp"
+"src/GameObject.cpp"
+"src/Player.cpp"
+)
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/")
 

@@ -9,7 +9,8 @@
 #ifndef yobatronika_GameObject_h
 #define yobatronika_GameObject_h
 
-#include <iostream>
+#include <SDL.h>
+
 #include <string>
 
 namespace Yoba {

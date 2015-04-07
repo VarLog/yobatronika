@@ -58,7 +58,7 @@ bool Game::init(int xpos, int ypos, int width, int height) {
     }
     
     TextureManager::Instance()->load("assets/tiger.png", "tiger", m_pRenderer);
-    m_gameObject.load(10, 10, 75, 48, "tiger");
+    m_player.load(10, 10, 75, 48, "tiger");
     
     std::cout << "init success\n";
     m_bRunning = true;
@@ -69,13 +69,13 @@ bool Game::init(int xpos, int ypos, int width, int height) {
 void Game::render() {
     SDL_RenderClear(m_pRenderer); // clear the renderer to the draw color
     
-    m_gameObject.draw(m_pRenderer);
+    m_player.draw(m_pRenderer);
     
     SDL_RenderPresent(m_pRenderer); // draw to the screen
 }
 
 void Game::update() {
-    m_gameObject.update();
+    m_player.update();
     
     /*
     const int delta = 200;
@@ -130,7 +130,8 @@ void Game::handleEvents() {
 
 void Game::clean() {
     std::cout << "cleaning game\n";
-    m_gameObject.clean();
+
+    m_player.clean();
     
     SDL_DestroyWindow(m_pWindow);
     SDL_DestroyRenderer(m_pRenderer);

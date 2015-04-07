@@ -15,7 +15,7 @@
 #include <SDL_image.h>
 
 #include "TextureManager.h"
-#include "GameObject.h"
+#include "Player.h"
 
 namespace Yoba {
     
@@ -42,7 +42,7 @@ namespace Yoba {
         SDL_Window *m_pWindow = nullptr;
         SDL_Renderer *m_pRenderer = nullptr;
         
-        GameObject m_gameObject;
+        Player m_player;
         
         bool init(int xpos, int ypos, int width, int height);
         void clean();
