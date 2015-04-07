@@ -12,6 +12,8 @@ int main(int argc, char* args[])
         game.handleEvents();
         game.update();
         game.render();
+        
+        SDL_Delay(10);
     }
     
     return 0;

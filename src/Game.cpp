@@ -57,29 +57,8 @@ bool Game::init(int xpos, int ypos, int width, int height) {
         return false;   /// \todo exception
     }
     
-    
-    SDL_Surface* pTempSurface = loadSurface("assets/tiger.png");
-    m_pTexture = SDL_CreateTextureFromSurface(m_pRenderer,
-                                              pTempSurface);
-    SDL_FreeSurface(pTempSurface);
-    
-    int tex_width, tex_height;
-    SDL_QueryTexture(m_pTexture, NULL, NULL,
-                     &tex_width, &tex_height);
-    
-    
-    m_sourceRectangle.x = 0;
-    m_sourceRectangle.y = 0;
-    m_sourceRectangle.w = tex_width/6;
-    m_sourceRectangle.h = tex_height;
-    
-    m_destinationRectangle.x = 100;
-    m_destinationRectangle.y = 100;
-    m_destinationRectangle.w = m_sourceRectangle.w;
-    m_destinationRectangle.h = m_sourceRectangle.h;
-    
-    TextureManager::Instance()->load("assets/tiger.png",
-                          "tiger", m_pRenderer);
+    TextureManager::Instance()->load("assets/tiger.png", "tiger", m_pRenderer);
+    m_gameObject.load(10, 10, 75, 48, "tiger");
     
     std::cout << "init success\n";
     m_bRunning = true;
@@ -87,39 +66,18 @@ bool Game::init(int xpos, int ypos, int width, int height) {
     return true;
 }
 
-SDL_Surface* Game::loadSurface( std::string path )
-{
-    SDL_Surface *loadedSurface = IMG_Load( path.c_str() );
-    if( loadedSurface == nullptr )
-    {
-        /// \todo exception
-        std::cout << "Unable to load image " << path.c_str()
-                    << "! SDL_image Error: " << IMG_GetError() << std::endl;
-    }
-
-    return loadedSurface;
-}
-
 void Game::render() {
     SDL_RenderClear(m_pRenderer); // clear the renderer to the draw color
     
-    SDL_RenderCopy(m_pRenderer, m_pTexture, &m_sourceRectangle,
-                   &m_destinationRectangle);
-    
-    auto rect = m_destinationRectangle;
-    rect.x = 0;
-    rect.y += rect.w;
-    SDL_RenderCopyEx(m_pRenderer, m_pTexture,
-                     &m_sourceRectangle, &rect,
-                     0, 0, SDL_FLIP_HORIZONTAL); // pass in the horizontal flip
-    
-    TextureManager::Instance()->drawFrame("tiger", 100,100, 128, 82,
-                               1, 1, m_pRenderer);
+    m_gameObject.draw(m_pRenderer);
     
     SDL_RenderPresent(m_pRenderer); // draw to the screen
 }
 
 void Game::update() {
+    m_gameObject.update();
+    
+    /*
     const int delta = 200;
     static int lastTicks = 0;
     static int idx = 0;
@@ -141,6 +99,7 @@ void Game::update() {
     if (m_destinationRectangle.x > 600) {
         m_destinationRectangle.x = 0;
     }
+     */
 }
 
 void Game::handleEvents() {
@@ -171,6 +130,8 @@ void Game::handleEvents() {
 
 void Game::clean() {
     std::cout << "cleaning game\n";
+    m_gameObject.clean();
+    
     SDL_DestroyWindow(m_pWindow);
     SDL_DestroyRenderer(m_pRenderer);
     SDL_Quit();

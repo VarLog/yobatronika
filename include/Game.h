@@ -15,8 +15,10 @@
 #include <SDL_image.h>
 
 #include "TextureManager.h"
+#include "GameObject.h"
 
 namespace Yoba {
+    
     class Game {
     public:
         static constexpr char const *title = "YOBAtronika";
@@ -39,16 +41,11 @@ namespace Yoba {
         
         SDL_Window *m_pWindow = nullptr;
         SDL_Renderer *m_pRenderer = nullptr;
-        SDL_Texture *m_pTexture = nullptr;
-        SDL_Surface *m_pScreenSurface = nullptr;
         
-        SDL_Rect m_sourceRectangle;
-        SDL_Rect m_destinationRectangle;
+        GameObject m_gameObject;
         
         bool init(int xpos, int ypos, int width, int height);
         void clean();
-        
-        SDL_Surface* loadSurface( std::string path );
     };
 }
 
