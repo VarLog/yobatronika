@@ -9,13 +9,13 @@
 #ifndef yobatronika_Player_h
 #define yobatronika_Player_h
 
-#include "GameObject.h"
+#include "SDLGameObject.h"
 
 namespace Yoba {
     
-    class Player : public GameObject {
+    class Player : public SDLGameObject {
     public:
-        Player(std::string name, int x, int y, int width, int height, std::string textureID);
+        Player(std::string name, const LoaderParams &params);
         ~Player();
         
     private:

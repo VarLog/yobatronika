@@ -35,6 +35,8 @@ namespace Yoba {
         
         bool running();
         
+        SDL_Renderer* getRenderer() const;
+        
         static std::shared_ptr<Game> Instance();
         static void DeleteInstance();
         

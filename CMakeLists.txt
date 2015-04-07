@@ -32,6 +32,7 @@ set(HEADERS
 "include/Player.h"
 "include/Enemy.h"
 "include/LoaderParams.h"
+"include/SDLGameObject.h"
 )
 
 set(SOURCES
@@ -42,6 +43,7 @@ set(SOURCES
 "src/Player.cpp"
 "src/Enemy.cpp"
 "src/LoaderParams.cpp"
+"src/SDLGameObject.cpp"
 )
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/")

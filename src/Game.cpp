@@ -9,6 +9,7 @@
 #include <iostream>
 
 #include "Game.h"
+#include "LoaderParams.h"
 
 using namespace Yoba;
 
@@ -73,12 +74,12 @@ bool Game::init(int xpos, int ypos, int width, int height) {
     }
     
     TextureManager::Instance()->load("assets/tiger.png", "player", m_pRenderer);
-    m_spPlayer = std::make_shared<Player>("yoba", 10, 100, 75, 48, "player");
+    m_spPlayer = std::make_shared<Player>("yoba", LoaderParams(10, 100, 75, 48, "player"));
     m_vGameObjects.push_back(m_spPlayer);
     
     TextureManager::Instance()->load("assets/rider.png", "enemy", m_pRenderer);
     for (int i = 0; i < 3; i++) {
-        auto sp_enemy = std::make_shared<Enemy>(10+48+50, 10+(123*(i)), 123, 86, "enemy");
+        auto sp_enemy = std::make_shared<Enemy>(LoaderParams(10+48+50, 10+(123*(i)), 123, 86, "enemy"));
         m_vEnemies.push_back(sp_enemy);
         m_vGameObjects.push_back(sp_enemy);
     }
@@ -94,7 +95,7 @@ void Game::render() {
     SDL_RenderClear(m_pRenderer);
     
     for (auto obj : m_vGameObjects) {
-        obj->draw(m_pRenderer);
+        obj->draw();
     }
     
     // draw to the screen
@@ -103,7 +104,7 @@ void Game::render() {
 
 void Game::update() {
     for (auto obj : m_vGameObjects) {
-        obj->draw(m_pRenderer);
+        obj->draw();
     }
     
     /*
@@ -164,7 +165,6 @@ void Game::clean() {
     for (auto obj : m_vGameObjects) {
         obj->clean();
     }
-
     
     SDL_DestroyWindow(m_pWindow);
     SDL_DestroyRenderer(m_pRenderer);
@@ -173,4 +173,8 @@ void Game::clean() {
 
 bool Game::running() {
     return m_bRunning;
+}
+
+SDL_Renderer* Game::getRenderer() const {
+    return m_pRenderer;
 }

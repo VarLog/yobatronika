@@ -9,13 +9,13 @@
 #ifndef yobatronika_Enemy_h
 #define yobatronika_Enemy_h
 
-#include "GameObject.h"
+#include "SDLGameObject.h"
 
 namespace Yoba {
     
-    class Enemy : public GameObject {
+    class Enemy : public SDLGameObject {
     public:
-        Enemy(int x, int y, int width, int height, std::string textureID);
+        Enemy(const LoaderParams &params);
         ~Enemy();
         
     };

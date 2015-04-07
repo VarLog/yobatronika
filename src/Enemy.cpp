@@ -10,8 +10,8 @@
 
 using namespace Yoba;
 
-Enemy::Enemy(int x, int y, int width, int height, std::string textureID)
-: GameObject(x, y, width, height, textureID)
+Enemy::Enemy(const LoaderParams &params)
+: SDLGameObject(params)
 {
     
 }
