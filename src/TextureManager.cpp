@@ -65,3 +65,16 @@ void TextureManager::drawFrame(std::string id, int x, int y, int width, int heig
     
     SDL_RenderCopyEx(pRenderer, m_textureMap[id], &srcRect, &destRect, 0, 0, flip);
 }
+
+std::shared_ptr<TextureManager> TextureManager::Instance()
+{
+    if(m_spInstance == nullptr)
+    {
+        m_spInstance = std::shared_ptr<TextureManager>(new TextureManager());
+    }
+    return m_spInstance;
+}
+
+void TextureManager::DeleteInstance() {
+    m_spInstance.reset();
+}

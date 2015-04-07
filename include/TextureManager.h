@@ -16,8 +16,9 @@
 #include <SDL.h>
 
 namespace Yoba {
+    
     class TextureManager {
-        
+    private:
         std::map<std::string, SDL_Texture*> m_textureMap;
     
         static std::shared_ptr<TextureManager> m_spInstance;
@@ -33,19 +34,10 @@ namespace Yoba {
         void drawFrame(std::string id, int x, int y, int width, int height, int currentRow, int currentFrame,
                        SDL_Renderer *pRenderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
         
-        static std::shared_ptr<TextureManager> Instance()
-        {
-            if(m_spInstance == nullptr)
-            {
-                m_spInstance = std::shared_ptr<TextureManager>(new TextureManager());
-            }
-            return m_spInstance;
-        }
-        
-        static void DeleteInstance() {
-            m_spInstance.reset();
-        }
+        static std::shared_ptr<TextureManager> Instance();
+        static void DeleteInstance();
     };
+    
 }
 
 #endif
