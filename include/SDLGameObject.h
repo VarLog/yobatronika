@@ -18,6 +18,7 @@ namespace Yoba {
     class SDLGameObject : public GameObject {
     public:
         SDLGameObject(const LoaderParams &params);
+        virtual ~SDLGameObject() {};
         
         virtual void draw() override;
         virtual void update() override;

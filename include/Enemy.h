@@ -16,7 +16,7 @@ namespace Yoba {
     class Enemy : public SDLGameObject {
     public:
         Enemy(const LoaderParams &params);
-        ~Enemy();
+        virtual ~Enemy();
         
     };
     

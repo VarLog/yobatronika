@@ -16,7 +16,7 @@ namespace Yoba {
     class Player : public SDLGameObject {
     public:
         Player(std::string name, const LoaderParams &params);
-        ~Player();
+        virtual ~Player();
         
     private:
         
