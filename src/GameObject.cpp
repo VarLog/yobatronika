@@ -15,6 +15,14 @@
 
 using namespace Yoba;
 
+GameObject::GameObject(int x, int y, int width, int height, std::string textureID) {
+    load(x, y, width, height, textureID);
+}
+
+GameObject::~GameObject() {
+    clean();
+}
+
 void GameObject::load(int x, int y, int width, int height, std::string textureID) {
     m_x = x;
     m_y = y;

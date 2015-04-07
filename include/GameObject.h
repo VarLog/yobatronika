@@ -16,13 +16,19 @@
 namespace Yoba {
     
     class GameObject {
-    public:
+    private:
         void load(int x, int y, int width, int height, std::string textureID);
+
+    public:
+        GameObject(int x, int y, int width, int height, std::string textureID);
+        ~GameObject();
+        
         void draw(SDL_Renderer* pRenderer);
         
         void update();
         void clean();
     
+        
     protected:
         
         std::string m_textureID;

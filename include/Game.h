@@ -10,12 +10,14 @@
 #define __yobatronika__Game__
 
 #include <string>
+#include <vector>
 
 #include <SDL.h>
 #include <SDL_image.h>
 
 #include "TextureManager.h"
 #include "Player.h"
+#include "Enemy.h"
 
 namespace Yoba {
     
@@ -42,7 +44,11 @@ namespace Yoba {
         SDL_Window *m_pWindow = nullptr;
         SDL_Renderer *m_pRenderer = nullptr;
         
-        Player m_player;
+        std::shared_ptr<Player> m_spPlayer = nullptr;
+        
+        std::vector<std::shared_ptr<Enemy>> m_vEnemies;
+        
+        std::vector<std::shared_ptr<GameObject>> m_vGameObjects;
         
         bool init(int xpos, int ypos, int width, int height);
         void clean();

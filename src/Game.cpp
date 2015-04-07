@@ -57,8 +57,16 @@ bool Game::init(int xpos, int ypos, int width, int height) {
         return false;   /// \todo exception
     }
     
-    TextureManager::Instance()->load("assets/tiger.png", "tiger", m_pRenderer);
-    m_player.load(10, 10, 75, 48, "tiger");
+    TextureManager::Instance()->load("assets/tiger.png", "player", m_pRenderer);
+    m_spPlayer = std::make_shared<Player>("yoba", 10, 100, 75, 48, "player");
+    m_vGameObjects.push_back(m_spPlayer);
+    
+    TextureManager::Instance()->load("assets/rider.png", "enemy", m_pRenderer);
+    for (int i = 0; i < 3; i++) {
+        auto sp_enemy = std::make_shared<Enemy>(10+48+50, 10+(123*(i)), 123, 86, "enemy");
+        m_vEnemies.push_back(sp_enemy);
+        m_vGameObjects.push_back(sp_enemy);
+    }
     
     std::cout << "init success\n";
     m_bRunning = true;
@@ -67,15 +75,21 @@ bool Game::init(int xpos, int ypos, int width, int height) {
 }
 
 void Game::render() {
-    SDL_RenderClear(m_pRenderer); // clear the renderer to the draw color
+    // clear the renderer to the draw color
+    SDL_RenderClear(m_pRenderer);
     
-    m_player.draw(m_pRenderer);
+    for (auto obj : m_vGameObjects) {
+        obj->draw(m_pRenderer);
+    }
     
-    SDL_RenderPresent(m_pRenderer); // draw to the screen
+    // draw to the screen
+    SDL_RenderPresent(m_pRenderer);
 }
 
 void Game::update() {
-    m_player.update();
+    for (auto obj : m_vGameObjects) {
+        obj->draw(m_pRenderer);
+    }
     
     /*
     const int delta = 200;
@@ -130,8 +144,12 @@ void Game::handleEvents() {
 
 void Game::clean() {
     std::cout << "cleaning game\n";
+    
+    /// \todo use destructor only for it
+    for (auto obj : m_vGameObjects) {
+        obj->clean();
+    }
 
-    m_player.clean();
     
     SDL_DestroyWindow(m_pWindow);
     SDL_DestroyRenderer(m_pRenderer);
