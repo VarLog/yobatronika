@@ -49,7 +49,7 @@ bool Game::init(int xpos, int ypos, int width, int height) {
             m_pRenderer = SDL_CreateRenderer(m_pWindow, -1, sdl_render_flags);
             if(m_pRenderer != nullptr) {
                 std::cout << "renderer creation success" << std::endl;
-                SDL_SetRenderDrawColor(m_pRenderer, 0, 0, 0, 255);
+                SDL_SetRenderDrawColor(m_pRenderer, 128, 128, 128, 255);
             } else {
                 std::cout << "renderer init fail" << std::endl;
                 return false;   /// \todo exception
