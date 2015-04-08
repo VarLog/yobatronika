@@ -54,6 +54,17 @@ void InputHandler::update() {
                 }
                 break;
             }
+            
+            case SDL_JOYBUTTONDOWN: {
+                int whichOne = event.jaxis.which;
+                m_vJoystickButtonStates[whichOne][event.jbutton.button] = true;
+                break;
+            }
+            case SDL_JOYBUTTONUP: {
+                int whichOne = event.jaxis.which;
+                m_vJoystickButtonStates[whichOne][event.jbutton.button] = false;
+                break;
+            }
                 
             case SDL_JOYAXISMOTION: {
                 int whichOne = event.jaxis.which;
@@ -101,6 +112,8 @@ void InputHandler::update() {
                         m_vJoystickValues[whichOne].first.setY(0);
                     }
                 }
+                
+                break;
             }
                 
             default:
@@ -130,6 +143,13 @@ void InputHandler::initialiseJoysticks() {
             if(joy && (SDL_JoystickGetAttached(joy) == SDL_TRUE)) {
                 m_vJoysticks.push_back(joy);
                 m_vJoystickValues.push_back(std::make_pair(Vector2D(0,0),Vector2D(0,0)));
+                
+                std::vector<bool> tempButtons;
+                for(int j = 0; j < SDL_JoystickNumButtons(joy); j++) {
+                    tempButtons.push_back(false);
+                }
+                m_vJoystickButtonStates.push_back(tempButtons);
+                
             } else {
                 /// \todo exception
                 std::cout << SDL_GetError() << std::endl;
@@ -146,7 +166,7 @@ void InputHandler::initialiseJoysticks() {
     }
 }
 
-const Vector2D InputHandler::joystickValue(int joy, int stick) {
+const Vector2D InputHandler::joystickValue(int joy, int stick) const {
     if(m_vJoystickValues.size() > 0) {
         if(stick == 1) {
             return m_vJoystickValues[joy].first;
@@ -156,4 +176,9 @@ const Vector2D InputHandler::joystickValue(int joy, int stick) {
     }
     /// \todo exception
     return Vector2D(0,0);
+}
+
+bool InputHandler::joystickButtonState(int joy, int buttonNumber) const {
+    /// \todo error handle
+    return m_vJoystickButtonStates[joy][buttonNumber];
 }

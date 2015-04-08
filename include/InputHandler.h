@@ -34,7 +34,8 @@ namespace Yoba {
         bool joysticksInitialised() {
             return m_bJoysticksInitialised;
         }
-        const Vector2D joystickValue(int joy, int stick);
+        const Vector2D joystickValue(int joy, int stick) const;
+        bool joystickButtonState(int joy, int buttonNumber) const;
         ///@}
         
         ~InputHandler();
@@ -50,6 +51,7 @@ namespace Yoba {
         ///@{
         std::vector<SDL_Joystick*> m_vJoysticks;
         std::vector<std::pair<Vector2D, Vector2D>> m_vJoystickValues;
+        std::vector<std::vector<bool>> m_vJoystickButtonStates;
         bool m_bJoysticksInitialised = false;
         const int m_joystickDeadZone = 10000;
         ///@}

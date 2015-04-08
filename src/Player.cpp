@@ -46,5 +46,11 @@ void Player::handleInput() {
         value += InputHandler::Instance()->joystickValue(0, 2);
         
         m_velocity = value * 1;
+        
+        // Yellow button on xbox360 gamepad
+        if(InputHandler::Instance()->joystickButtonState(0, 3))
+        {
+            m_velocity.setX(10);
+        }
     }
 }
