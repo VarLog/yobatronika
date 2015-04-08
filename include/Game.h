@@ -15,6 +15,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 
+#include "InputHandler.h"
 #include "TextureManager.h"
 #include "Player.h"
 #include "Enemy.h"
@@ -32,6 +33,8 @@ namespace Yoba {
         void render();
         void update();
         void handleEvents();
+        
+        void quit();
         
         bool running();
         

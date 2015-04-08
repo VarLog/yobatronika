@@ -10,6 +10,7 @@
 
 #include "Game.h"
 #include "LoaderParams.h"
+#include "InputHandler.h"
 
 using namespace Yoba;
 
@@ -73,6 +74,8 @@ bool Game::init(int xpos, int ypos, int width, int height) {
         return false;   /// \todo exception
     }
     
+    InputHandler::Instance()->initialiseJoysticks();
+    
     TextureManager::Instance()->load("assets/tiger.png", "player", m_pRenderer);
     m_spPlayer = std::make_shared<Player>("yoba", LoaderParams(10, 100, 75, 48, "player"));
     m_vGameObjects.push_back(m_spPlayer);
@@ -106,60 +109,24 @@ void Game::update() {
     for (auto obj : m_vGameObjects) {
         obj->update();
     }
-    
-    /*
-    const int delta = 200;
-    static int lastTicks = 0;
-    static int idx = 0;
-    
-    if ( (SDL_GetTicks() - lastTicks) > delta ) {
-        idx++;
-        lastTicks = SDL_GetTicks();
-    }
-    
-    if (idx == 6) {
-        idx = 0;
-        m_destinationRectangle.x += m_destinationRectangle.w/6;
-    }
-    
-    m_sourceRectangle.x = m_sourceRectangle.w * idx;
-    
-    m_destinationRectangle.x += m_destinationRectangle.w/36;
-    
-    if (m_destinationRectangle.x > 600) {
-        m_destinationRectangle.x = 0;
-    }
-     */
+}
+
+void Game::quit() {
+    m_bRunning = false;
+    clean();
 }
 
 void Game::handleEvents() {
-    SDL_Event event;
-    if(SDL_PollEvent(&event))
-    {
-        switch (event.type)
-        {
-            case SDL_QUIT:
-            {
-                m_bRunning = false;
-                break;
-            }
-            case SDL_KEYDOWN:
-            {
-                switch(event.key.keysym.sym){
-                    case SDLK_ESCAPE:
-                        m_bRunning = false;
-                        break;
-                }
-                break;
-            }
-            default:
-                break;
-        }
-    }
+    InputHandler::Instance()->update();
 }
 
 void Game::clean() {
     std::cout << "cleaning game\n";
+    
+    InputHandler::Instance()->clean();
+    
+    /// \todo clean
+    //TextureManager::Instance()->clean();
     
     /// \todo use destructor only for it
     for (auto obj : m_vGameObjects) {

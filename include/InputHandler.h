@@ -10,6 +10,11 @@
 #define yobatronika_InputHandler_h
 
 #include <memory>
+#include <vector>
+
+#include "SDL.h"
+
+#include "Vector2D.h"
 
 namespace Yoba {
     
@@ -21,10 +26,33 @@ namespace Yoba {
         void update();
         void clean();
         
+        /**
+         * Joysticks
+         */
+        ///@{
+        void initialiseJoysticks();
+        bool joysticksInitialised() {
+            return m_bJoysticksInitialised;
+        }
+        const Vector2D joystickValue(int joy, int stick);
+        ///@}
+        
+        ~InputHandler();
+
     private:
         InputHandler();
         
         static std::shared_ptr<InputHandler> m_spInstance;
+        
+        /**
+         * Joysticks
+         */
+        ///@{
+        std::vector<SDL_Joystick*> m_vJoysticks;
+        std::vector<std::pair<Vector2D, Vector2D>> m_vJoystickValues;
+        bool m_bJoysticksInitialised = false;
+        const int m_joystickDeadZone = 10000;
+        ///@}
     };
     
 }

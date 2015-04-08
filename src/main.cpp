@@ -35,5 +35,9 @@ int main(int argc, char* args[])
         }        
     }
     
+    // Destroy the Game before exit is important because a destructor of
+    // the Game class uses some other singletons which can be destroyed early.
+    Game::DeleteInstance();
+    
     return EXIT_SUCCESS;
 }

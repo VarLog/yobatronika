@@ -23,6 +23,7 @@ namespace Yoba {
     
         static std::shared_ptr<TextureManager> m_spInstance;
         
+        /// \todo other constructors
         TextureManager(){};
     public:
         
@@ -33,6 +34,8 @@ namespace Yoba {
         
         void drawFrame(std::string id, int x, int y, int width, int height, int currentRow, int currentFrame,
                        SDL_Renderer *pRenderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
+        
+        /// \todo clean
         
         static std::shared_ptr<TextureManager> Instance();
         static void DeleteInstance();

@@ -6,7 +6,10 @@
 //
 //
 
+#include <iostream>
+
 #include "InputHandler.h"
+#include "Game.h"
 
 using namespace Yoba;
 
@@ -25,7 +28,132 @@ void InputHandler::DeleteInstance() {
     m_spInstance.reset();
 }
 
-InputHandler::InputHandler() {};
+InputHandler::InputHandler() {
 
-void InputHandler::update() {}
-void InputHandler::clean() {}
+}
+
+InputHandler::~InputHandler() {
+
+}
+
+void InputHandler::update() {
+
+    SDL_Event event;
+    while (SDL_PollEvent(&event)) {
+        switch (event.type) {
+            case SDL_QUIT: {
+                Game::Instance()->quit();
+                break;
+            }
+                
+            case SDL_KEYDOWN: {
+                switch(event.key.keysym.sym) {
+                    case SDLK_ESCAPE:
+                        Game::Instance()->quit();
+                        break;
+                }
+                break;
+            }
+                
+            case SDL_JOYAXISMOTION: {
+                int whichOne = event.jaxis.which;
+                
+                // left stick move left or right
+                if(event.jaxis.axis == 0) {
+                    if (event.jaxis.value > m_joystickDeadZone) {
+                        m_vJoystickValues[whichOne].first.setX(1);
+                    } else if(event.jaxis.value < -m_joystickDeadZone) {
+                        m_vJoystickValues[whichOne].first.setX(-1);
+                    } else {
+                        m_vJoystickValues[whichOne].first.setX(0);
+                    }
+                }
+                
+                // left stick move up or down
+                if(event.jaxis.axis == 1) {
+                    if (event.jaxis.value > m_joystickDeadZone) {
+                        m_vJoystickValues[whichOne].first.setY(1);
+                    } else if(event.jaxis.value < -m_joystickDeadZone) {
+                        m_vJoystickValues[whichOne].first.setY(-1);
+                    } else {
+                        m_vJoystickValues[whichOne].first.setY(0);
+                    }
+                }
+                
+                // right stick move left or right
+                if(event.jaxis.axis == 3) {
+                    if (event.jaxis.value > m_joystickDeadZone) {
+                        m_vJoystickValues[whichOne].first.setX(1);
+                    } else if(event.jaxis.value < -m_joystickDeadZone) {
+                        m_vJoystickValues[whichOne].first.setX(-1);
+                    } else {
+                        m_vJoystickValues[whichOne].first.setX(0);
+                    }
+                }
+                
+                // right stick move up or down
+                if(event.jaxis.axis == 4) {
+                    if (event.jaxis.value > m_joystickDeadZone) {
+                        m_vJoystickValues[whichOne].first.setY(1);
+                    } else if(event.jaxis.value < -m_joystickDeadZone) {
+                        m_vJoystickValues[whichOne].first.setY(-1);
+                    } else {
+                        m_vJoystickValues[whichOne].first.setY(0);
+                    }
+                }
+            }
+                
+            default:
+                break;
+        }
+    }
+}
+
+void InputHandler::clean() {
+    if(m_bJoysticksInitialised) {
+        for(auto joy : m_vJoysticks) {
+            SDL_JoystickClose(joy);
+        }
+    }
+}
+
+void InputHandler::initialiseJoysticks() {
+    if(SDL_WasInit(SDL_INIT_JOYSTICK) == 0) {
+        SDL_InitSubSystem(SDL_INIT_JOYSTICK);
+    }
+    
+    if(SDL_NumJoysticks() > 0) {
+        
+        for(int i = 0; i < SDL_NumJoysticks(); i++) {
+            SDL_Joystick* joy = SDL_JoystickOpen(i);
+            
+            if(joy && (SDL_JoystickGetAttached(joy) == SDL_TRUE)) {
+                m_vJoysticks.push_back(joy);
+                m_vJoystickValues.push_back(std::make_pair(Vector2D(0,0),Vector2D(0,0)));
+            } else {
+                /// \todo exception
+                std::cout << SDL_GetError() << std::endl;
+                return;
+            }
+        }
+        
+        SDL_JoystickEventState(SDL_ENABLE);
+        m_bJoysticksInitialised = true;
+        
+        std::cout << "Initialised  "<< m_vJoysticks.size() << "joystick(s)";
+    } else {
+        m_bJoysticksInitialised = false;
+    }
+}
+
+const Vector2D InputHandler::joystickValue(int joy, int stick) {
+    if(m_vJoystickValues.size() > 0) {
+        if(stick == 1) {
+            return m_vJoystickValues[joy].first;
+        } else if(stick == 2) {
+            return m_vJoystickValues[joy].second;
+        }
+    }
+    /// \todo exception
+    return Vector2D(0,0);
+}

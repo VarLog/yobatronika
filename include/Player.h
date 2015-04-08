@@ -23,6 +23,7 @@ namespace Yoba {
         virtual void clean() override;
 
     private:
+        void handleInput();
         
         std::string m_sName;
     };
