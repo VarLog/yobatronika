@@ -10,7 +10,9 @@
 
 #include "Game.h"
 #include "LoaderParams.h"
-#include "InputHandler.h"
+
+#include "MenuState.h"
+#include "PlayState.h"
 
 using namespace Yoba;
 
@@ -87,6 +89,9 @@ bool Game::init(int xpos, int ypos, int width, int height) {
         m_vGameObjects.push_back(sp_enemy);
     }
     
+    m_spGameStateMachine = std::make_shared<GameStateMachine>();
+    m_spGameStateMachine->changeState(std::make_shared<MenuState>());
+    
     std::cout << "init success\n";
     m_bRunning = true;
     
@@ -118,6 +123,11 @@ void Game::quit() {
 
 void Game::handleEvents() {
     InputHandler::Instance()->update();
+
+    if(InputHandler::Instance()->isKeyDown(SDL_SCANCODE_RETURN))
+    {
+        m_spGameStateMachine->changeState(std::make_shared<PlayState>());
+    }
 }
 
 void Game::clean() {
