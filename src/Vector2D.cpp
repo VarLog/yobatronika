@@ -10,6 +10,7 @@
 
 using namespace Yoba;
 
+Vector2D::Vector2D(): m_x(0.f), m_y(0.f) {}
 Vector2D::Vector2D(float x, float y): m_x(x), m_y(y) {}
 
 float Vector2D::getX() const { return m_x; }

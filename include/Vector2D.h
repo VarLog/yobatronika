@@ -15,6 +15,7 @@ namespace Yoba {
     
     class Vector2D {
     public:
+        Vector2D();
         Vector2D(float x, float y);
         
         float getX() const;

@@ -29,7 +29,9 @@ void InputHandler::DeleteInstance() {
 }
 
 InputHandler::InputHandler() {
-
+    for(int i = 0; i < 3; i++) {
+        m_vMouseButtonStates.push_back(false);
+    }
 }
 
 InputHandler::~InputHandler() {
@@ -51,6 +53,41 @@ void InputHandler::update() {
                     case SDLK_ESCAPE:
                         Game::Instance()->quit();
                         break;
+                }
+                break;
+            }
+                
+            case SDL_MOUSEMOTION:
+            {
+                m_mousePosition.setX(event.motion.x);
+                m_mousePosition.setY(event.motion.y);
+                break;
+            }
+                
+            case SDL_MOUSEBUTTONDOWN:
+            {
+                if(event.button.button == SDL_BUTTON_LEFT) {
+                    m_vMouseButtonStates[MOUSE_BUTTON_LEFT] = true;
+                }
+                if(event.button.button == SDL_BUTTON_MIDDLE) {
+                    m_vMouseButtonStates[MOUSE_BUTTON_MIDDLE] = true;
+                }
+                if(event.button.button == SDL_BUTTON_RIGHT) {
+                    m_vMouseButtonStates[MOUSE_BUTTON_RIGHT] = true;
+                }
+                break;
+            }
+                
+            case SDL_MOUSEBUTTONUP:
+            {
+                if(event.button.button == SDL_BUTTON_LEFT) {
+                    m_vMouseButtonStates[MOUSE_BUTTON_LEFT] = false;
+                }
+                if(event.button.button == SDL_BUTTON_MIDDLE) {
+                    m_vMouseButtonStates[MOUSE_BUTTON_MIDDLE] = false;
+                }
+                if(event.button.button == SDL_BUTTON_RIGHT) {
+                    m_vMouseButtonStates[MOUSE_BUTTON_RIGHT] = false;
                 }
                 break;
             }
@@ -181,4 +218,12 @@ const Vector2D InputHandler::joystickValue(int joy, int stick) const {
 bool InputHandler::joystickButtonState(int joy, int buttonNumber) const {
     /// \todo error handle
     return m_vJoystickButtonStates[joy][buttonNumber];
+}
+
+bool InputHandler::mouseButtonState(MOUSE_BUTTONS button) const {
+    return m_vMouseButtonStates[button];
+}
+
+const Vector2D InputHandler::mousePosition() const {
+    return m_mousePosition;
 }

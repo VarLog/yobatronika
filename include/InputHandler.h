@@ -20,6 +20,13 @@ namespace Yoba {
     
     class InputHandler {
     public:
+        enum MOUSE_BUTTONS
+        {
+            MOUSE_BUTTON_LEFT   = 0,
+            MOUSE_BUTTON_MIDDLE = 1,
+            MOUSE_BUTTON_RIGHT  = 2,
+        };
+        
         static std::shared_ptr<InputHandler> Instance();
         static void DeleteInstance();
         
@@ -38,6 +45,14 @@ namespace Yoba {
         bool joystickButtonState(int joy, int buttonNumber) const;
         ///@}
         
+        /**
+         * Mouse
+         */
+        ///@{
+        bool mouseButtonState(MOUSE_BUTTONS button) const;
+        const Vector2D mousePosition() const;
+        ///@}
+        
         ~InputHandler();
 
     private:
@@ -54,6 +69,14 @@ namespace Yoba {
         std::vector<std::vector<bool>> m_vJoystickButtonStates;
         bool m_bJoysticksInitialised = false;
         const int m_joystickDeadZone = 10000;
+        ///@}
+        
+        /**
+         * Mouse
+         */
+        ///@{
+        std::vector<bool> m_vMouseButtonStates;
+        Vector2D m_mousePosition;
         ///@}
     };
     

@@ -53,4 +53,12 @@ void Player::handleInput() {
             m_velocity.setX(10);
         }
     }
+    
+    if(InputHandler::Instance()->mouseButtonState(InputHandler::MOUSE_BUTTON_LEFT))
+    {
+        m_velocity.setY(1);
+    }
+    
+    Vector2D vec = InputHandler::Instance()->mousePosition();
+    m_acceleration = (vec - m_position) / 100;
 }
