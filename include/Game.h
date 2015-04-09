@@ -19,6 +19,7 @@
 #include "TextureManager.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "GameStateMachine.h"
 
 namespace Yoba {
     
@@ -65,6 +66,8 @@ namespace Yoba {
         std::vector<std::shared_ptr<Enemy>> m_vEnemies;
         
         std::vector<std::shared_ptr<GameObject>> m_vGameObjects;
+        
+        std::shared_ptr<GameStateMachine> m_spGameStateMachine = nullptr;
     };
 }
 

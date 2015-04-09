@@ -10,7 +10,9 @@
 
 #include "Game.h"
 #include "LoaderParams.h"
-#include "InputHandler.h"
+
+#include "MenuState.h"
+#include "PlayState.h"
 
 using namespace Yoba;
 
@@ -87,6 +89,9 @@ bool Game::init(int xpos, int ypos, int width, int height) {
         m_vGameObjects.push_back(sp_enemy);
     }
     
+    m_spGameStateMachine = std::make_shared<GameStateMachine>();
+    m_spGameStateMachine->changeState(std::make_shared<MenuState>());
+    
     std::cout << "init success\n";
     m_bRunning = true;
     
@@ -97,18 +102,22 @@ void Game::render() {
     // clear the renderer to the draw color
     SDL_RenderClear(m_pRenderer);
     
-    for (auto obj : m_vGameObjects) {
-        obj->draw();
-    }
+    m_spGameStateMachine->render();
+    
+    //for (auto obj : m_vGameObjects) {
+    //    obj->draw();
+    //}
     
     // draw to the screen
     SDL_RenderPresent(m_pRenderer);
 }
 
 void Game::update() {
-    for (auto obj : m_vGameObjects) {
-        obj->update();
-    }
+    m_spGameStateMachine->update();
+    
+    //for (auto obj : m_vGameObjects) {
+    //    obj->update();
+    //}
 }
 
 void Game::quit() {
@@ -118,6 +127,11 @@ void Game::quit() {
 
 void Game::handleEvents() {
     InputHandler::Instance()->update();
+
+    if(InputHandler::Instance()->isKeyDown(SDL_SCANCODE_RETURN))
+    {
+        m_spGameStateMachine->changeState(std::make_shared<PlayState>());
+    }
 }
 
 void Game::clean() {

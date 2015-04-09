@@ -36,6 +36,10 @@ set(HEADERS
 "include/Vector2D.h"
 "include/InputHandler.h"
 "include/MainApplication.h"
+"include/GameState.h"
+"include/MenuState.h"
+"include/PlayState.h"
+"include/GameStateMachine.h"
 )
 
 set(SOURCES
@@ -49,6 +53,9 @@ set(SOURCES
 "src/Vector2D.cpp"
 "src/InputHandler.cpp"
 "src/MainApplication.cpp"
+"src/MenuState.cpp"
+"src/PlayState.cpp"
+"src/GameStateMachine.cpp"
 )
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/")
