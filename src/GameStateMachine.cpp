@@ -28,19 +28,28 @@ void GameStateMachine::changeState(std::shared_ptr<GameState> spState) {
         if(m_gameStates.back()->getStateID() == spState->getStateID()) {
             return;
         }
-        
-        if(m_gameStates.back()->onExit()) {
-            m_gameStates.pop_back();
-        } else {
-            /// \todo error handle
-        }
     }
-    
-    m_gameStates.push_back(spState);
-    m_gameStates.back()->onEnter();
+    m_stateToChange = spState;
 }
 
 void GameStateMachine::update() {
+    
+    /// \todo extract to separatel method
+    if (m_stateToChange) {
+        if(!m_gameStates.empty()) {
+            if(m_gameStates.back()->onExit()) {
+                m_gameStates.pop_back();
+            } else {
+                /// \todo error handle
+            }
+        }
+        
+        m_gameStates.push_back(m_stateToChange);
+        m_gameStates.back()->onEnter();
+        
+        m_stateToChange.reset();
+    }
+    
     if(!m_gameStates.empty()) {
         m_gameStates.back()->update();
     }
