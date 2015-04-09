@@ -50,107 +50,44 @@ void InputHandler::update() {
             }
                 
             case SDL_KEYDOWN: {
-                switch(event.key.keysym.sym) {
-                    case SDLK_ESCAPE:
-                        Game::Instance()->quit();
-                        break;
-                }
+                onKeyDown(event);
+                break;
+            }
+                
+            case SDL_KEYUP: {
+                onKeyUp(event);
                 break;
             }
                 
             case SDL_MOUSEMOTION:
             {
-                m_mousePosition.setX(event.motion.x);
-                m_mousePosition.setY(event.motion.y);
+                onMouseMove(event);
                 break;
             }
                 
             case SDL_MOUSEBUTTONDOWN:
             {
-                if(event.button.button == SDL_BUTTON_LEFT) {
-                    m_vMouseButtonStates[MOUSE_BUTTON_LEFT] = true;
-                }
-                if(event.button.button == SDL_BUTTON_MIDDLE) {
-                    m_vMouseButtonStates[MOUSE_BUTTON_MIDDLE] = true;
-                }
-                if(event.button.button == SDL_BUTTON_RIGHT) {
-                    m_vMouseButtonStates[MOUSE_BUTTON_RIGHT] = true;
-                }
+                onMouseButtonDown(event);
                 break;
             }
                 
             case SDL_MOUSEBUTTONUP:
             {
-                if(event.button.button == SDL_BUTTON_LEFT) {
-                    m_vMouseButtonStates[MOUSE_BUTTON_LEFT] = false;
-                }
-                if(event.button.button == SDL_BUTTON_MIDDLE) {
-                    m_vMouseButtonStates[MOUSE_BUTTON_MIDDLE] = false;
-                }
-                if(event.button.button == SDL_BUTTON_RIGHT) {
-                    m_vMouseButtonStates[MOUSE_BUTTON_RIGHT] = false;
-                }
+                onMouseButtonUp(event);
                 break;
             }
             
             case SDL_JOYBUTTONDOWN: {
-                int whichOne = event.jaxis.which;
-                m_vJoystickButtonStates[whichOne][event.jbutton.button] = true;
+                onJoystickButtonDown(event);
                 break;
             }
             case SDL_JOYBUTTONUP: {
-                int whichOne = event.jaxis.which;
-                m_vJoystickButtonStates[whichOne][event.jbutton.button] = false;
+                onJoystickButtonUp(event);
                 break;
             }
                 
             case SDL_JOYAXISMOTION: {
-                int whichOne = event.jaxis.which;
-                
-                // left stick move left or right
-                if(event.jaxis.axis == 0) {
-                    if (event.jaxis.value > m_joystickDeadZone) {
-                        m_vJoystickValues[whichOne].first.setX(1);
-                    } else if(event.jaxis.value < -m_joystickDeadZone) {
-                        m_vJoystickValues[whichOne].first.setX(-1);
-                    } else {
-                        m_vJoystickValues[whichOne].first.setX(0);
-                    }
-                }
-                
-                // left stick move up or down
-                if(event.jaxis.axis == 1) {
-                    if (event.jaxis.value > m_joystickDeadZone) {
-                        m_vJoystickValues[whichOne].first.setY(1);
-                    } else if(event.jaxis.value < -m_joystickDeadZone) {
-                        m_vJoystickValues[whichOne].first.setY(-1);
-                    } else {
-                        m_vJoystickValues[whichOne].first.setY(0);
-                    }
-                }
-                
-                // right stick move left or right
-                if(event.jaxis.axis == 3) {
-                    if (event.jaxis.value > m_joystickDeadZone) {
-                        m_vJoystickValues[whichOne].first.setX(1);
-                    } else if(event.jaxis.value < -m_joystickDeadZone) {
-                        m_vJoystickValues[whichOne].first.setX(-1);
-                    } else {
-                        m_vJoystickValues[whichOne].first.setX(0);
-                    }
-                }
-                
-                // right stick move up or down
-                if(event.jaxis.axis == 4) {
-                    if (event.jaxis.value > m_joystickDeadZone) {
-                        m_vJoystickValues[whichOne].first.setY(1);
-                    } else if(event.jaxis.value < -m_joystickDeadZone) {
-                        m_vJoystickValues[whichOne].first.setY(-1);
-                    } else {
-                        m_vJoystickValues[whichOne].first.setY(0);
-                    }
-                }
-                
+                onJoystickAxisMove(event);
                 break;
             }
                 
@@ -158,6 +95,105 @@ void InputHandler::update() {
                 break;
         }
     }
+}
+
+void InputHandler::onKeyDown(SDL_Event& event) {
+    switch(event.key.keysym.sym) {
+        case SDLK_ESCAPE:
+            Game::Instance()->quit();
+            break;
+    }
+}
+
+void InputHandler::onKeyUp(SDL_Event& event) {
+    
+}
+
+void InputHandler::onMouseMove(SDL_Event& event) {
+    m_mousePosition.setX(event.motion.x);
+    m_mousePosition.setY(event.motion.y);
+}
+
+void InputHandler::onMouseButtonDown(SDL_Event& event) {
+    if(event.button.button == SDL_BUTTON_LEFT) {
+        m_vMouseButtonStates[MOUSE_BUTTON_LEFT] = true;
+    }
+    if(event.button.button == SDL_BUTTON_MIDDLE) {
+        m_vMouseButtonStates[MOUSE_BUTTON_MIDDLE] = true;
+    }
+    if(event.button.button == SDL_BUTTON_RIGHT) {
+        m_vMouseButtonStates[MOUSE_BUTTON_RIGHT] = true;
+    }
+}
+
+void InputHandler::onMouseButtonUp(SDL_Event& event) {
+    if(event.button.button == SDL_BUTTON_LEFT) {
+        m_vMouseButtonStates[MOUSE_BUTTON_LEFT] = false;
+    }
+    if(event.button.button == SDL_BUTTON_MIDDLE) {
+        m_vMouseButtonStates[MOUSE_BUTTON_MIDDLE] = false;
+    }
+    if(event.button.button == SDL_BUTTON_RIGHT) {
+        m_vMouseButtonStates[MOUSE_BUTTON_RIGHT] = false;
+    }
+}
+
+void InputHandler::onJoystickAxisMove(SDL_Event& event) {
+    int whichOne = event.jaxis.which;
+    
+    // left stick move left or right
+    if(event.jaxis.axis == 0) {
+        if (event.jaxis.value > m_joystickDeadZone) {
+            m_vJoystickValues[whichOne].first.setX(1);
+        } else if(event.jaxis.value < -m_joystickDeadZone) {
+            m_vJoystickValues[whichOne].first.setX(-1);
+        } else {
+            m_vJoystickValues[whichOne].first.setX(0);
+        }
+    }
+    
+    // left stick move up or down
+    if(event.jaxis.axis == 1) {
+        if (event.jaxis.value > m_joystickDeadZone) {
+            m_vJoystickValues[whichOne].first.setY(1);
+        } else if(event.jaxis.value < -m_joystickDeadZone) {
+            m_vJoystickValues[whichOne].first.setY(-1);
+        } else {
+            m_vJoystickValues[whichOne].first.setY(0);
+        }
+    }
+    
+    // right stick move left or right
+    if(event.jaxis.axis == 3) {
+        if (event.jaxis.value > m_joystickDeadZone) {
+            m_vJoystickValues[whichOne].first.setX(1);
+        } else if(event.jaxis.value < -m_joystickDeadZone) {
+            m_vJoystickValues[whichOne].first.setX(-1);
+        } else {
+            m_vJoystickValues[whichOne].first.setX(0);
+        }
+    }
+    
+    // right stick move up or down
+    if(event.jaxis.axis == 4) {
+        if (event.jaxis.value > m_joystickDeadZone) {
+            m_vJoystickValues[whichOne].first.setY(1);
+        } else if(event.jaxis.value < -m_joystickDeadZone) {
+            m_vJoystickValues[whichOne].first.setY(-1);
+        } else {
+            m_vJoystickValues[whichOne].first.setY(0);
+        }
+    }
+}
+
+void InputHandler::onJoystickButtonDown(SDL_Event& event) {
+    int whichOne = event.jaxis.which;
+    m_vJoystickButtonStates[whichOne][event.jbutton.button] = true;
+}
+
+void InputHandler::onJoystickButtonUp(SDL_Event& event) {
+    int whichOne = event.jaxis.which;
+    m_vJoystickButtonStates[whichOne][event.jbutton.button] = false;
 }
 
 void InputHandler::clean() {

@@ -71,6 +71,10 @@ namespace Yoba {
          * Joysticks
          */
         ///@{
+        void onJoystickAxisMove(SDL_Event& event);
+        void onJoystickButtonDown(SDL_Event& event);
+        void onJoystickButtonUp(SDL_Event& event);
+        
         std::vector<SDL_Joystick*> m_vJoysticks;
         std::vector<std::pair<Vector2D, Vector2D>> m_vJoystickValues;
         std::vector<std::vector<bool>> m_vJoystickButtonStates;
@@ -82,6 +86,10 @@ namespace Yoba {
          * Mouse
          */
         ///@{
+        void onMouseMove(SDL_Event& event);
+        void onMouseButtonDown(SDL_Event& event);
+        void onMouseButtonUp(SDL_Event& event);
+        
         std::vector<bool> m_vMouseButtonStates;
         Vector2D m_mousePosition;
         ///@}
@@ -90,6 +98,9 @@ namespace Yoba {
          * Keyboard
          */
         ///@{
+        void onKeyDown(SDL_Event& event);
+        void onKeyUp(SDL_Event& event);
+        
         const Uint8* m_keystates;
         ///@}
     };
