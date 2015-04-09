@@ -24,7 +24,7 @@ namespace Yoba {
         {
             MOUSE_BUTTON_LEFT   = 0,
             MOUSE_BUTTON_MIDDLE = 1,
-            MOUSE_BUTTON_RIGHT  = 2,
+            MOUSE_BUTTON_RIGHT  = 2
         };
         
         static std::shared_ptr<InputHandler> Instance();

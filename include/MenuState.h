@@ -9,7 +9,11 @@
 #ifndef yobatronika_MenuState_h
 #define yobatronika_MenuState_h
 
+#include <vector>
+#include <memory>
+
 #include "GameState.h"
+#include "GameObject.h"
 
 namespace Yoba {
     
@@ -24,6 +28,8 @@ namespace Yoba {
         virtual std::string getStateID() const { return s_menuID; }
     private:
         static const std::string s_menuID;
+        
+        std::vector<std::shared_ptr<GameObject>> m_gameObjects;
     };
     
 }

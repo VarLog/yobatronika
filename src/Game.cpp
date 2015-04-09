@@ -99,25 +99,15 @@ bool Game::init(int xpos, int ypos, int width, int height) {
 }
 
 void Game::render() {
-    // clear the renderer to the draw color
     SDL_RenderClear(m_pRenderer);
     
     m_spGameStateMachine->render();
     
-    //for (auto obj : m_vGameObjects) {
-    //    obj->draw();
-    //}
-    
-    // draw to the screen
     SDL_RenderPresent(m_pRenderer);
 }
 
 void Game::update() {
     m_spGameStateMachine->update();
-    
-    //for (auto obj : m_vGameObjects) {
-    //    obj->update();
-    //}
 }
 
 void Game::quit() {

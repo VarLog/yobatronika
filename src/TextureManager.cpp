@@ -13,6 +13,19 @@ using namespace Yoba;
 
 std::shared_ptr<TextureManager> TextureManager::m_spInstance = nullptr;
 
+std::shared_ptr<TextureManager> TextureManager::Instance()
+{
+    if(m_spInstance == nullptr)
+    {
+        m_spInstance = std::shared_ptr<TextureManager>(new TextureManager());
+    }
+    return m_spInstance;
+}
+
+void TextureManager::DeleteInstance() {
+    m_spInstance.reset();
+}
+
 bool TextureManager::load(std::string fileName, std::string id, SDL_Renderer *pRenderer)
 {
     SDL_Surface* pTempSurface = IMG_Load(fileName.c_str());
@@ -21,7 +34,7 @@ bool TextureManager::load(std::string fileName, std::string id, SDL_Renderer *pR
     }
     
     SDL_Texture *pTexture = SDL_CreateTextureFromSurface(pRenderer, pTempSurface);
-    
+
     SDL_FreeSurface(pTempSurface);
     
     if(pTexture != nullptr) {
@@ -30,6 +43,10 @@ bool TextureManager::load(std::string fileName, std::string id, SDL_Renderer *pR
     }
     
     return false;
+}
+
+TextureManager::~TextureManager() {
+    clean();
 }
 
 void TextureManager::draw(std::string id, int x, int y, int width, int height,
@@ -66,15 +83,14 @@ void TextureManager::drawFrame(std::string id, int x, int y, int width, int heig
     SDL_RenderCopyEx(pRenderer, m_textureMap[id], &srcRect, &destRect, 0, 0, flip);
 }
 
-std::shared_ptr<TextureManager> TextureManager::Instance()
-{
-    if(m_spInstance == nullptr)
-    {
-        m_spInstance = std::shared_ptr<TextureManager>(new TextureManager());
-    }
-    return m_spInstance;
+void TextureManager::clearFromTextureMap(std::string id) {
+    SDL_DestroyTexture(m_textureMap.at(id));
+    m_textureMap.erase(id);
 }
 
-void TextureManager::DeleteInstance() {
-    m_spInstance.reset();
+void TextureManager::clean() {
+    for (auto pair : m_textureMap) {
+        SDL_DestroyTexture(pair.second);
+    }
+    m_textureMap.clear();
 }
