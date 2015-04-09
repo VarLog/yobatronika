@@ -102,18 +102,22 @@ void Game::render() {
     // clear the renderer to the draw color
     SDL_RenderClear(m_pRenderer);
     
-    for (auto obj : m_vGameObjects) {
-        obj->draw();
-    }
+    m_spGameStateMachine->render();
+    
+    //for (auto obj : m_vGameObjects) {
+    //    obj->draw();
+    //}
     
     // draw to the screen
     SDL_RenderPresent(m_pRenderer);
 }
 
 void Game::update() {
-    for (auto obj : m_vGameObjects) {
-        obj->update();
-    }
+    m_spGameStateMachine->update();
+    
+    //for (auto obj : m_vGameObjects) {
+    //    obj->update();
+    //}
 }
 
 void Game::quit() {

@@ -22,6 +22,9 @@ namespace Yoba {
         void changeState(std::shared_ptr<GameState> pState);
         void popState();
         
+        void update();
+        void render();
+        
     private:
         std::vector<std::shared_ptr<GameState>> m_gameStates;
     };
