@@ -53,6 +53,13 @@ namespace Yoba {
         const Vector2D mousePosition() const;
         ///@}
         
+        /**
+         * Keyboard
+         */
+        ///@{
+        bool isKeyDown(SDL_Scancode key) const;
+        ///@}
+
         ~InputHandler();
 
     private:
@@ -77,6 +84,13 @@ namespace Yoba {
         ///@{
         std::vector<bool> m_vMouseButtonStates;
         Vector2D m_mousePosition;
+        ///@}
+        
+        /**
+         * Keyboard
+         */
+        ///@{
+        const Uint8* m_keystates;
         ///@}
     };
     
