@@ -35,7 +35,7 @@ InputHandler::InputHandler() {
 }
 
 InputHandler::~InputHandler() {
-
+    clean();
 }
 
 void InputHandler::update() {
@@ -234,7 +234,7 @@ void InputHandler::initialiseJoysticks() {
         SDL_JoystickEventState(SDL_ENABLE);
         m_bJoysticksInitialised = true;
         
-        std::cout << "Initialised  "<< m_vJoysticks.size() << "joystick(s)";
+        std::cout << "Initialised " << m_vJoysticks.size() << "joystick(s)";
     } else {
         m_bJoysticksInitialised = false;
     }

@@ -19,7 +19,7 @@ Player::Player(std::string name, const LoaderParams &params)
 }
 
 Player::~Player() {
-    
+    clean();
 }
 
 void Player::draw() {

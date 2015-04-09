@@ -17,7 +17,7 @@ Enemy::Enemy(const LoaderParams &params)
 }
 
 Enemy::~Enemy() {
-    
+    clean();
 }
 
 void Enemy::draw() {

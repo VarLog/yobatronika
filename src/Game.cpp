@@ -123,16 +123,6 @@ void Game::handleEvents() {
 void Game::clean() {
     std::cout << "cleaning game\n";
     
-    InputHandler::Instance()->clean();
-    
-    /// \todo clean
-    //TextureManager::Instance()->clean();
-    
-    /// \todo use destructor only for it
-    for (auto obj : m_vGameObjects) {
-        obj->clean();
-    }
-    
     SDL_DestroyWindow(m_pWindow);
     SDL_DestroyRenderer(m_pRenderer);
     SDL_Quit();

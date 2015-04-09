@@ -35,6 +35,7 @@ set(HEADERS
 "include/SDLGameObject.h"
 "include/Vector2D.h"
 "include/InputHandler.h"
+"include/MainApplication.h"
 )
 
 set(SOURCES
@@ -47,6 +48,7 @@ set(SOURCES
 "src/SDLGameObject.cpp"
 "src/Vector2D.cpp"
 "src/InputHandler.cpp"
+"src/MainApplication.cpp"
 )
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/")

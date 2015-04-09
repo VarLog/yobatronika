@@ -24,6 +24,10 @@ GameObject(params), m_position(params.getX(), params.getY()), m_velocity(0,0), m
     m_currentFrame = 1;
 }
 
+SDLGameObject::~SDLGameObject() {
+    clean();
+}
+
 void SDLGameObject::draw()
 {
     TextureManager::Instance()->drawFrame(m_textureID, m_position.getX(), m_position.getY(),
@@ -37,6 +41,6 @@ void SDLGameObject::update() {
 }
 
 void SDLGameObject::clean() {
-    
+
 }
 
