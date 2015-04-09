@@ -32,7 +32,7 @@ void SDLGameObject::draw()
 {
     TextureManager::Instance()->drawFrame(m_textureID, m_position.getX(), m_position.getY(),
                                           m_width, m_height, m_currentRow, m_currentFrame,
-                                          Game::Instance()->getRenderer());
+                                          Game::Instance()->renderer());
 }
 
 void SDLGameObject::update() {

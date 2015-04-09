@@ -12,10 +12,15 @@
 #include "TextureManager.h"
 #include "Game.h"
 #include "MenuButton.h"
+#include "PlayState.h"
 
 using namespace Yoba;
 
 const std::string MenuState::s_menuID = "MENU";
+
+MenuState::~MenuState() {
+    
+}
 
 void MenuState::update() {
     for (auto obj : m_gameObjects) {
@@ -33,22 +38,32 @@ bool MenuState::onEnter() {
     std::cout << "entering MenuState" << std::endl;
     
     if(!TextureManager::Instance()->load("assets/play_button.png",
-                                         "play_button", Game::Instance()->getRenderer()))
+                                         "play_button", Game::Instance()->renderer()))
     {
         return false;
     }
     
     if(!TextureManager::Instance()->load("assets/exit_button.png",
-                                         "exit_button", Game::Instance()->getRenderer()))
+                                         "exit_button", Game::Instance()->renderer()))
     {
         return false;
     }
     
-    auto button1 = std::make_shared<MenuButton>(LoaderParams(100, 100, 145, 35, "play_button"));
-    auto button2 = std::make_shared<MenuButton>(LoaderParams(100, 300, 145, 35, "exit_button"));
+
+    auto f_play = [this] {
+        Game::Instance()->stateMachine()->changeState(std::make_shared<PlayState>());
+    };
+
+    auto button_play = std::make_shared<MenuButton>(LoaderParams(100, 100, 145, 35, "play_button"), f_play);
     
-    m_gameObjects.push_back(button1);
-    m_gameObjects.push_back(button2);
+    auto f_exit = [] {
+        Game::Instance()->quit();
+    };
+
+    auto button_exit = std::make_shared<MenuButton>(LoaderParams(100, 300, 145, 35, "exit_button"), f_exit);
+    
+    m_gameObjects.push_back(button_play);
+    m_gameObjects.push_back(button_exit);
     
     return true;
 }

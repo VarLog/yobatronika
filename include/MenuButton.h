@@ -9,11 +9,17 @@
 #ifndef yobatronika_MenuButton_h
 #define yobatronika_MenuButton_h
 
+#include <functional>
+
 #include "SDLGameObject.h"
 
 namespace Yoba {
     
     class MenuButton : public SDLGameObject {
+    
+    private:
+        std::function<void()> m_callback;
+        bool m_bReleased;
         
     public:
         
@@ -25,6 +31,8 @@ namespace Yoba {
         };
         
         MenuButton(const LoaderParams &params);
+        MenuButton(const LoaderParams &params, std::function<void()> callback);
+
         virtual ~MenuButton();
         
         virtual void draw() override;

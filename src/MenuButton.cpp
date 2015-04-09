@@ -17,6 +17,12 @@ MenuButton::MenuButton(const LoaderParams &params)
     m_currentFrame = BUTTON_STATE_MOUSE_OUT;
 }
 
+MenuButton::MenuButton(const LoaderParams &params, std::function<void()> callback)
+: SDLGameObject(params), m_callback(callback)
+{
+    m_currentFrame = BUTTON_STATE_MOUSE_OUT;
+}
+
 MenuButton::~MenuButton() {
     clean();
 }
@@ -34,10 +40,18 @@ void MenuButton::update() {
        && pMousePos.getY() < (m_position.getY() + m_height)
        && pMousePos.getY() > m_position.getY())
     {
-        m_currentFrame = BUTTON_STATE_MOUSE_OVER;
         
-        if(InputHandler::Instance()->mouseButtonState(InputHandler::MOUSE_BUTTON_LEFT)) {
+        if(InputHandler::Instance()->mouseButtonState(InputHandler::MOUSE_BUTTON_LEFT) && m_bReleased) {
             m_currentFrame = BUTTON_STATE_CLICKED;
+            
+            if (m_callback) {
+                m_callback();
+            }
+            m_bReleased = false;
+        }
+        else if(!InputHandler::Instance()->mouseButtonState(InputHandler::MOUSE_BUTTON_LEFT)) {
+            m_bReleased = true;
+            m_currentFrame = BUTTON_STATE_MOUSE_OVER;
         }
         
     } else {

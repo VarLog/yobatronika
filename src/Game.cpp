@@ -136,6 +136,11 @@ bool Game::running() {
     return m_bRunning;
 }
 
-SDL_Renderer* Game::getRenderer() const {
+SDL_Renderer* Game::renderer() const {
     return m_pRenderer;
 }
+
+const std::shared_ptr<GameStateMachine> Game::stateMachine() const {
+    return m_spGameStateMachine;
+}
+

@@ -26,6 +26,8 @@ namespace Yoba {
         virtual bool onExit() override;
         
         virtual std::string getStateID() const { return s_menuID; }
+        
+        ~MenuState();
     private:
         static const std::string s_menuID;
         
