@@ -36,6 +36,8 @@ namespace Yoba {
         std::vector<std::shared_ptr<GameObject>> m_gameObjects;
         std::shared_ptr<Player> m_spPlayer = nullptr;
         std::vector<std::shared_ptr<Enemy>> m_enemies;
+        
+        bool checkCollision(std::shared_ptr<SDLGameObject> obj1, std::shared_ptr<SDLGameObject> obj2);
     };
 }
 

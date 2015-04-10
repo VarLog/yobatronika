@@ -7,11 +7,13 @@
 //
 
 #include <iostream>
+#include <algorithm>
 
 #include "PlayState.h"
 #include "TextureManager.h"
 #include "Game.h"
 #include "PauseState.h"
+#include "GameOverState.h"
 
 using namespace Yoba;
 
@@ -30,6 +32,14 @@ void PlayState::update() {
     for (auto obj : m_gameObjects) {
         obj->update();
     }
+    
+    std::find_if(m_enemies.cbegin(), m_enemies.cend(), [this](const std::shared_ptr<Enemy> enemy) {
+        if(this->checkCollision(m_spPlayer, enemy)) {
+            Game::Instance()->stateMachine()->pushState(std::make_shared<GameOverState>());
+            return true;
+        }
+        return false;
+    });
 }
 
 void PlayState::render() {
@@ -72,6 +82,34 @@ bool PlayState::onExit() {
     
     TextureManager::Instance()->clearFromTextureMap("tiger");
     TextureManager::Instance()->clearFromTextureMap("rider");
+    
+    return true;
+}
+
+bool PlayState::checkCollision(std::shared_ptr<SDLGameObject> obj1, std::shared_ptr<SDLGameObject> obj2) {
+    
+    /// \todo implement geometry for purposes like these.
+    
+    int leftA, leftB;
+    int rightA, rightB;
+    int topA, topB;
+    int bottomA, bottomB;
+    
+    leftA   = obj1->getPosition().getX();
+    rightA  = obj1->getPosition().getX() + obj1->getWidth();
+    topA    = obj1->getPosition().getY();
+    bottomA = obj1->getPosition().getY() + obj1->getHeight();
+    
+    leftB   = obj2->getPosition().getX();
+    rightB  = obj2->getPosition().getX() + obj2->getWidth();
+    topB    = obj2->getPosition().getY();
+    bottomB = obj2->getPosition().getY() + obj2->getHeight();
+    
+    //If any of the sides from A are outside of B
+    if( bottomA <= topB ){ return false; }
+    if( topA >= bottomB ){ return false; }
+    if( rightA <= leftB ){ return false; }
+    if( leftA >= rightB ){ return false; }
     
     return true;
 }

@@ -29,5 +29,5 @@ void AnimatedGraphic::clean() {
 }
 
 void AnimatedGraphic::update() {
-    m_currentFrame = int(((SDL_GetTicks() / (1000 / m_animSpeed)) % m_numFrames));
+    m_currentFrame = int(((SDL_GetTicks() / (1000 / m_animSpeed)) % m_numFrames)) + 1;
 }

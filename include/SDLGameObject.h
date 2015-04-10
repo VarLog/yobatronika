@@ -25,6 +25,10 @@ namespace Yoba {
         virtual void update() override;
         virtual void clean() override;
         
+        Vector2D getPosition() { return m_position; }
+        int getWidth() { return m_width; }
+        int getHeight() { return m_height; }
+        
     protected:
         Vector2D m_position;
         Vector2D m_velocity;

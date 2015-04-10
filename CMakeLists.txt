@@ -43,6 +43,7 @@ set(HEADERS
 "include/MenuButton.h"
 "include/PauseState.h"
 "include/AnimatedGraphic.h"
+"include/GameOverState.h"
 )
 
 set(SOURCES
@@ -62,6 +63,7 @@ set(SOURCES
 "src/MenuButton.cpp"
 "src/PauseState.cpp"
 "src/AnimatedGraphic.cpp"
+"src/GameOverState.cpp"
 )
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/")

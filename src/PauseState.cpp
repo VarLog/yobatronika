@@ -33,8 +33,7 @@ void PauseState::render() {
     }
 }
 
-bool PauseState::onEnter()
-{
+bool PauseState::onEnter() {
     std::cout << "entering PauseState" << std::endl;
     
     if(!TextureManager::Instance()->load("assets/resume_button.png", "resumebutton", Game::Instance()->renderer()))
@@ -62,8 +61,8 @@ bool PauseState::onEnter()
     
     return true;
 }
-bool PauseState::onExit()
-{
+
+bool PauseState::onExit() {
     std::cout << "exiting PauseState" << std::endl;
 
     m_gameObjects.clear();
