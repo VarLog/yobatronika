@@ -29,9 +29,7 @@ void InputHandler::DeleteInstance() {
 }
 
 InputHandler::InputHandler() {
-    for(int i = 0; i < 3; i++) {
-        m_vMouseButtonStates.push_back(false);
-    }
+    m_vMouseButtonStates.assign(3, false);
 }
 
 InputHandler::~InputHandler() {
@@ -98,11 +96,7 @@ void InputHandler::update() {
 }
 
 void InputHandler::onKeyDown(SDL_Event& event) {
-    switch(event.key.keysym.sym) {
-        case SDLK_ESCAPE:
-            Game::Instance()->quit();
-            break;
-    }
+
 }
 
 void InputHandler::onKeyUp(SDL_Event& event) {
@@ -275,4 +269,8 @@ bool InputHandler::isKeyDown(SDL_Scancode key) const {
     }
     /// \todo exception
     return false;
+}
+
+void InputHandler::resetMouseButtonStates() {
+    m_vMouseButtonStates.assign(3, false);
 }

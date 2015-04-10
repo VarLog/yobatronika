@@ -106,11 +106,6 @@ void Game::quit() {
 
 void Game::handleEvents() {
     InputHandler::Instance()->update();
-
-    if(InputHandler::Instance()->isKeyDown(SDL_SCANCODE_RETURN))
-    {
-        m_spGameStateMachine->changeState(std::make_shared<PlayState>());
-    }
 }
 
 void Game::clean() {

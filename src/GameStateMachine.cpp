@@ -16,11 +16,8 @@ void GameStateMachine::pushState(std::shared_ptr<GameState> spState) {
 }
 
 void GameStateMachine::popState() {
-    if(!m_gameStates.empty()) {
-        if(m_gameStates.back()->onExit()) {
-            m_gameStates.pop_back();
-        }
-    }
+    /// \todo use queue for it
+    m_bRemoveCurrentState = true;
 }
 
 void GameStateMachine::changeState(std::shared_ptr<GameState> spState) {
@@ -29,11 +26,22 @@ void GameStateMachine::changeState(std::shared_ptr<GameState> spState) {
             return;
         }
     }
+    
+    /// \todo use queue for it
     m_stateToChange = spState;
 }
 
 void GameStateMachine::update() {
-    
+    /// \todo extract to separatel method
+    if (m_bRemoveCurrentState) {
+        if(!m_gameStates.empty()) {
+            if(m_gameStates.back()->onExit()) {
+                m_gameStates.pop_back();
+            }
+        }
+        m_bRemoveCurrentState = false;
+    }
+
     /// \todo extract to separatel method
     if (m_stateToChange) {
         if(!m_gameStates.empty()) {

@@ -29,6 +29,7 @@ namespace Yoba {
         std::vector<std::shared_ptr<GameState>> m_gameStates;
         
         std::shared_ptr<GameState> m_stateToChange = nullptr;
+        bool m_bRemoveCurrentState = false;
     };
     
 }

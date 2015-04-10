@@ -11,6 +11,7 @@
 #include "PlayState.h"
 #include "TextureManager.h"
 #include "Game.h"
+#include "PauseState.h"
 
 using namespace Yoba;
 
@@ -21,6 +22,11 @@ PlayState::~PlayState() {
 }
 
 void PlayState::update() {
+    
+    if(InputHandler::Instance()->isKeyDown(SDL_SCANCODE_ESCAPE)) {
+        Game::Instance()->stateMachine()->pushState(std::make_shared<PauseState>());
+    }
+    
     for (auto obj : m_gameObjects) {
         obj->update();
     }

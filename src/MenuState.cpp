@@ -23,6 +23,14 @@ MenuState::~MenuState() {
 }
 
 void MenuState::update() {
+    if(InputHandler::Instance()->isKeyDown(SDL_SCANCODE_ESCAPE)) {
+        Game::Instance()->quit();
+    }
+    
+    if(InputHandler::Instance()->isKeyDown(SDL_SCANCODE_RETURN)) {
+        Game::Instance()->stateMachine()->changeState(std::make_shared<PlayState>());
+    }
+    
     for (auto obj : m_gameObjects) {
         obj->update();
     }
@@ -50,7 +58,7 @@ bool MenuState::onEnter() {
     }
     
 
-    auto f_play = [this] {
+    auto f_play = [] {
         Game::Instance()->stateMachine()->changeState(std::make_shared<PlayState>());
     };
 
@@ -75,6 +83,8 @@ bool MenuState::onExit() {
     
     TextureManager::Instance()->clearFromTextureMap("play_button");
     TextureManager::Instance()->clearFromTextureMap("exit_button");
+    
+    InputHandler::Instance()->resetMouseButtonStates();
     
     return true;
 }

@@ -59,6 +59,8 @@ namespace Yoba {
         ///@{
         bool isKeyDown(SDL_Scancode key) const;
         ///@}
+        
+        void resetMouseButtonStates();
 
         ~InputHandler();
 

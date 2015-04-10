@@ -13,7 +13,8 @@ using namespace Yoba;
 Enemy::Enemy(const LoaderParams &params)
 : SDLGameObject(params)
 {
-    
+    m_velocity.setY(2);
+    m_velocity.setX(0.001);
 }
 
 Enemy::~Enemy() {
@@ -30,5 +31,23 @@ void Enemy::clean() {
 
 void Enemy::update()
 {
+    if(m_position.getY() < 0)
+    {
+        m_velocity.setY(2);
+    }
+    else if(m_position.getY() > 400)
+    {
+        m_velocity.setY(-2);
+    }
+    
+    if(m_position.getX() < 0)
+    {
+        m_velocity.setX(0.001);
+    }
+    else if(m_position.getX() > 400)
+    {
+        m_velocity.setX(-0.001);
+    }
+    
     SDLGameObject::update();
 }
