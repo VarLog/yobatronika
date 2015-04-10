@@ -51,11 +51,11 @@ bool PlayState::onEnter() {
         return false;
     }
     
-    m_spPlayer = std::make_shared<Player>("yoba", LoaderParams(10, 100, 75, 48, "tiger"));
+    m_spPlayer = std::make_shared<Player>(LoaderParams(10, 100, 75, 48, 1, "tiger"), "yoba");
     m_gameObjects.push_back(m_spPlayer);
     
     for (int i = 0; i < 3; i++) {
-        auto sp_enemy = std::make_shared<Enemy>(LoaderParams(10+48+50, 10+(123*(i)), 123, 86, "rider"));
+        auto sp_enemy = std::make_shared<Enemy>(LoaderParams(10+48+50, 10+(123*(i)), 123, 86, 1, "rider"));
         m_enemies.push_back(sp_enemy);
         m_gameObjects.push_back(sp_enemy);
     }

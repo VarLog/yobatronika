@@ -50,12 +50,12 @@ bool PauseState::onEnter()
     auto f_mainmenu = [] {
         Game::Instance()->stateMachine()->changeState(std::make_shared<MenuState>());
     };
-    auto button_mainmenu = std::make_shared<MenuButton>(LoaderParams(200, 100, 132, 51, "mainbutton"), f_mainmenu);
+    auto button_mainmenu = std::make_shared<MenuButton>(LoaderParams(200, 100, 132, 51, 3, "mainbutton"), f_mainmenu);
     
     auto f_resume = [] {
         Game::Instance()->stateMachine()->popState();
     };
-    auto button_resume = std::make_shared<MenuButton>(LoaderParams(200, 300, 132, 51, "resumebutton"), f_resume);
+    auto button_resume = std::make_shared<MenuButton>(LoaderParams(200, 300, 132, 51, 3, "resumebutton"), f_resume);
     
     m_gameObjects.push_back(button_mainmenu);
     m_gameObjects.push_back(button_resume);

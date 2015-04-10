@@ -62,13 +62,13 @@ bool MenuState::onEnter() {
         Game::Instance()->stateMachine()->changeState(std::make_shared<PlayState>());
     };
 
-    auto button_play = std::make_shared<MenuButton>(LoaderParams(100, 100, 145, 35, "play_button"), f_play);
+    auto button_play = std::make_shared<MenuButton>(LoaderParams(100, 100, 145, 35, 3, "play_button"), f_play);
     
     auto f_exit = [] {
         Game::Instance()->quit();
     };
 
-    auto button_exit = std::make_shared<MenuButton>(LoaderParams(100, 300, 145, 35, "exit_button"), f_exit);
+    auto button_exit = std::make_shared<MenuButton>(LoaderParams(100, 300, 145, 35, 3, "exit_button"), f_exit);
     
     m_gameObjects.push_back(button_play);
     m_gameObjects.push_back(button_exit);

@@ -12,7 +12,7 @@
 
 using namespace Yoba;
 
-Player::Player(std::string name, const LoaderParams &params)
+Player::Player(const LoaderParams &params, std::string name)
 : SDLGameObject(params), m_sName(name)
 {
     

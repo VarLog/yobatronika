@@ -18,6 +18,8 @@ GameObject(params), m_position(params.getX(), params.getY()), m_velocity(0,0), m
     m_width = params.getWidth();
     m_height = params.getHeight();
     
+    m_numFrames = params.getNumFaces();
+    
     m_textureID = params.getTextureID();
     
     m_currentRow = 1;

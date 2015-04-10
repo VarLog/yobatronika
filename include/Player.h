@@ -15,7 +15,7 @@ namespace Yoba {
     
     class Player : public SDLGameObject {
     public:
-        Player(std::string name, const LoaderParams &params);
+        Player(const LoaderParams &params, std::string name);
         virtual ~Player();
         
         virtual void draw() override;
