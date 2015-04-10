@@ -30,7 +30,5 @@ void Enemy::clean() {
 
 void Enemy::update()
 {
-    m_velocity.setX(-1);
-    
     SDLGameObject::update();
 }

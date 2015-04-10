@@ -37,6 +37,8 @@ namespace Yoba {
         int m_currentFrame;
         
         std::string m_textureID;
+        
+        SDL_RendererFlip m_renderFlip = SDL_FLIP_NONE;
     };
 }
 

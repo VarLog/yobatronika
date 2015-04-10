@@ -78,17 +78,6 @@ bool Game::init(int xpos, int ypos, int width, int height) {
     
     InputHandler::Instance()->initialiseJoysticks();
     
-    TextureManager::Instance()->load("assets/tiger.png", "player", m_pRenderer);
-    m_spPlayer = std::make_shared<Player>("yoba", LoaderParams(10, 100, 75, 48, "player"));
-    m_vGameObjects.push_back(m_spPlayer);
-    
-    TextureManager::Instance()->load("assets/rider.png", "enemy", m_pRenderer);
-    for (int i = 0; i < 3; i++) {
-        auto sp_enemy = std::make_shared<Enemy>(LoaderParams(10+48+50, 10+(123*(i)), 123, 86, "enemy"));
-        m_vEnemies.push_back(sp_enemy);
-        m_vGameObjects.push_back(sp_enemy);
-    }
-    
     m_spGameStateMachine = std::make_shared<GameStateMachine>();
     m_spGameStateMachine->changeState(std::make_shared<MenuState>());
     

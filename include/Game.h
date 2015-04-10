@@ -62,12 +62,6 @@ namespace Yoba {
         SDL_Window *m_pWindow = nullptr;
         SDL_Renderer *m_pRenderer = nullptr;
         
-        std::shared_ptr<Player> m_spPlayer = nullptr;
-        
-        std::vector<std::shared_ptr<Enemy>> m_vEnemies;
-        
-        std::vector<std::shared_ptr<GameObject>> m_vGameObjects;
-        
         std::shared_ptr<GameStateMachine> m_spGameStateMachine = nullptr;
     };
 }

@@ -36,6 +36,12 @@ void Player::update() {
     
     handleInput();
     
+    if (m_velocity.getX() < 0) {
+        m_renderFlip = SDL_FLIP_HORIZONTAL;
+    } else {
+        m_renderFlip = SDL_FLIP_NONE;
+    }
+    
     SDLGameObject::update();
 }
 
@@ -57,7 +63,10 @@ void Player::handleInput() {
     if(InputHandler::Instance()->mouseButtonState(InputHandler::MOUSE_BUTTON_LEFT))
     {
         Vector2D vec = InputHandler::Instance()->mousePosition();
-        m_acceleration = (vec - m_position) / 100;
+        
+        Vector2D center(m_position.getX()+m_width/2, m_position.getY()+m_height/2);
+        
+        m_velocity = (vec - center) / 50;
     }
     
     if(InputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT)) {
