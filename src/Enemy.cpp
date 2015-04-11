@@ -31,22 +31,24 @@ void Enemy::clean() {
 
 void Enemy::update()
 {
-    if(m_position.getY() < 0)
+    if(m_position.getY() <= 0)
     {
+        m_position = Vector2D(m_position.getX(), 0);
         m_velocity.setY(2);
     }
-    else if(m_position.getY() > 400)
+    else if(m_position.getY() >= 400)
     {
+        m_position = Vector2D(m_position.getX(), 400);
         m_velocity.setY(-2);
     }
     
-    if(m_position.getX() < 0)
+    if(m_position.getX() <= 0)
     {
-        m_velocity.setX(0.001);
+        m_velocity.setX(0.1);
     }
-    else if(m_position.getX() > 400)
+    else if(m_position.getX() >= 400)
     {
-        m_velocity.setX(-0.001);
+        m_velocity.setX(-0.1);
     }
     
     SDLGameObject::update();
